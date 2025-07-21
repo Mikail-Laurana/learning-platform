@@ -6,6 +6,8 @@ import FrontEndWebsite from './pages/FrontEndWebsite';
 import BackEndDeveloper from './pages/BackEndDeveloper';
 import MachineLearning from './pages/MachineLearning';
 import AllClass from './pages/AllClass';
+import DataProcessing from './pages/machine-learning/DataProcessing';
+import PythonOrientation from './pages/machine-learning/PythonOrientation';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
               <Route path="/back-end-developer" element={<BackEndDeveloper />} />
               <Route path="/machine-learning" element={<MachineLearning />} />
               <Route path="/all-class" element={<AllClass />} />
+              <Route path="/data-processing" element={<DataProcessing />} />
+              <Route path="/python-orientation" element={<PythonOrientation />} />
             </Routes>
           </div>
         </div>
