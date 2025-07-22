@@ -186,42 +186,12 @@ const PythonIntroWebsite = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0">
-        <div className="absolute top-10 left-10 w-8 h-8 bg-yellow-400 rounded-full opacity-80"></div>
-        <div className="absolute top-20 right-20 w-6 h-6 bg-white rounded-full opacity-60"></div>
-        <div className="absolute top-40 left-1/4 w-4 h-4 bg-yellow-300 rounded-full opacity-70"></div>
-        <div className="absolute bottom-20 right-10 w-10 h-10 bg-orange-400 rounded-full opacity-50"></div>
-        <div className="absolute top-1/3 right-1/3 w-5 h-5 bg-pink-400 rounded-full opacity-60"></div>
-        
-        {/* Rocket and space elements */}
-        <div className="absolute top-16 right-16">
-          <Rocket className="w-12 h-12 text-orange-400 transform rotate-45" />
-        </div>
-        <div className="absolute top-32 left-20">
-          <User className="w-10 h-10 text-white opacity-70" />
-        </div>
-        
-        {/* Stars */}
-        {[...Array(15)].map((_, i) => (
-          <Star 
-            key={i} 
-            className={`absolute w-4 h-4 text-yellow-300 opacity-${Math.random() > 0.5 ? '60' : '40'}`}
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              transform: `rotate(${Math.random() * 360}deg)`
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="relative z-10 container mx-auto px-6 py-8">
+    <div className="min-h-screen bg-blue-600">
+      <div className="container mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-6xl font-bold text-white mb-4">Python</h1>
-          <p className="text-2xl text-blue-200">Pengenalan Bahasa Pemrograman</p>
+          <p className="text-2xl text-blue-100">Pengenalan Bahasa Pemrograman</p>
         </div>
 
         <div className="flex gap-8 max-w-7xl mx-auto">
@@ -242,13 +212,13 @@ const PythonIntroWebsite = () => {
                     setShowQuiz(false);
                   }
                 }}
-                className={`bg-gray-300 rounded-xl p-6 transition-all duration-300 ${
+                className={`bg-white rounded-xl p-6 transition-all duration-300 ${
                   // Check if lesson is accessible
                   index === 0 || completedLessons[index - 1] 
-                    ? 'cursor-pointer hover:bg-gray-200' 
+                    ? 'cursor-pointer hover:bg-gray-50' 
                     : 'cursor-not-allowed opacity-50'
                 } ${
-                  activeLesson === index ? 'ring-4 ring-blue-400 bg-gray-200' : ''
+                  activeLesson === index ? 'ring-4 ring-blue-400 bg-blue-50' : ''
                 }`}
               >
                 <div className="flex items-center justify-between mb-3">
@@ -275,15 +245,15 @@ const PythonIntroWebsite = () => {
                   )}
                 </div>
                 <h3 className="font-semibold text-gray-800 text-lg mb-2">{lesson.title}</h3>
-                <div className="bg-purple-200 rounded-lg px-3 py-2 inline-block">
-                  <span className="text-purple-800 text-sm font-medium">{lesson.subtitle}</span>
+                <div className="bg-blue-100 rounded-lg px-3 py-2 inline-block">
+                  <span className="text-blue-800 text-sm font-medium">{lesson.subtitle}</span>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 bg-gray-200 rounded-2xl p-8">
+          <div className="flex-1 bg-white rounded-2xl p-8 shadow-lg">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
               {lessons[activeLesson].content.title}
             </h2>
@@ -335,7 +305,7 @@ const PythonIntroWebsite = () => {
                 <div className="flex justify-end">
                   <button
                     onClick={handleNext}
-                    className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 rounded-xl flex items-center gap-2 transition-colors text-lg font-medium shadow-lg"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl flex items-center gap-2 transition-colors text-lg font-medium shadow-lg"
                   >
                     {activeLesson === 3 ? 'Mulai Quiz' : 'Berikutnya'}
                     <ChevronRight className="w-5 h-5" />

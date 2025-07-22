@@ -45,15 +45,7 @@ const AllClass = () => {
                 <h4 className="text-lg font-semibold mb-2 text-gray-800">{course.title}</h4>
                 <p className="text-gray-600 mb-4">{course.description}</p>
                 <div className="flex items-center justify-between">
-                  <div className="flex-1 mr-4">
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className={`h-2 rounded-full ${course.color} transition-all duration-300`}
-                        style={{ width: `${course.progress}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                  <span className="text-sm font-medium text-gray-600">{course.progress}%</span>
+                  
                 </div>
               </div>
             ))}

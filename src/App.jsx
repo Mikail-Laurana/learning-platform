@@ -8,6 +8,9 @@ import MachineLearning from './pages/MachineLearning';
 import AllClass from './pages/AllClass';
 import DataProcessing from './pages/machine-learning/DataProcessing';
 import PythonOrientation from './pages/machine-learning/PythonOrientation';
+import FunctionPython from './pages/machine-learning/FunctionPython';
+import ArrayPython from './pages/machine-learning/ArrayPython';
+
 
 function App() {
   return (
@@ -26,6 +29,8 @@ function App() {
               <Route path="/all-class" element={<AllClass />} />
               <Route path="/data-processing" element={<DataProcessing />} />
               <Route path="/python-orientation" element={<PythonOrientation />} />
+              <Route path="/function-python" element={<FunctionPython />} />
+              <Route path="/array-python" element={<ArrayPython />} />
             </Routes>
           </div>
         </div>

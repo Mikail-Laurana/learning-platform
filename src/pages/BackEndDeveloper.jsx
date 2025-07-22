@@ -4,10 +4,10 @@ import ProgressCards from '../components/ProgressCards';
 
 const BackEndDeveloper = () => {
   const backEndCards = [
-    { title: 'Node.js Setup', progress: 100, type: 'backend' },
-    { title: 'Database Design', progress: 90, type: 'backend' },
-    { title: 'API Development', progress: 75, type: 'backend' },
-    { title: 'Server Deployment', progress: 60, type: 'backend' }
+    { title: 'JavaScript Dasar', progress: 100, type: 'backend' },
+    { title: 'Setup Node.js', progress: 90, type: 'backend' },
+    { title: 'Desain Memakai React', progress: 75, type: 'backend' },
+    { title: 'Web Server', progress: 60, type: 'backend' }
   ];
 
   return (

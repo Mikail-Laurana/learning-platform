@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { Play, ChevronRight, Rocket, Star, Code, Database, User, Terminal, CheckCircle } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Play, ChevronRight, Rocket, Star, Code, Database, User, Terminal } from 'lucide-react';
 
 const PythonLearningWebsite = () => {
-  const navigate = useNavigate();
-
   const [activeLesson, setActiveLesson] = useState(0);
   const [currentCode, setCurrentCode] = useState('print("hello world")');
   const [output, setOutput] = useState('hello world');
@@ -128,48 +125,74 @@ const PythonLearningWebsite = () => {
 
   const runCode = () => {
     try {
+      // Simple Python-like interpreter for basic operations
       let result = '';
       const lines = currentCode.split('\n');
       const variables = {};
+      
       for (let line of lines) {
         line = line.trim();
         if (!line || line.startsWith('#')) continue;
-
+        
+        // Handle print statements
         if (line.startsWith('print(')) {
           const match = line.match(/print\((.*)\)/);
           if (match) {
             let content = match[1];
+            
+            // Handle f-strings
             if (content.startsWith('f"') && content.endsWith('"')) {
               content = content.slice(2, -1);
-              content = content.replace(/\{([^}]+)\}/g, (_, varName) => variables[varName] || `{${varName}}`);
+              content = content.replace(/\{([^}]+)\}/g, (match, varName) => {
+                return variables[varName] || match;
+              });
               result += content + '\n';
-            } else if (content.startsWith('"') && content.endsWith('"')) {
+            }
+            // Handle regular strings
+            else if (content.startsWith('"') && content.endsWith('"')) {
               result += content.slice(1, -1) + '\n';
-            } else if (variables[content]) {
+            }
+            // Handle variables
+            else if (variables[content]) {
               result += variables[content] + '\n';
-            } else if (content.startsWith('type(')) {
+            }
+            // Handle type() function
+            else if (content.startsWith('type(')) {
               const typeMatch = content.match(/type\(([^)]+)\)/);
               if (typeMatch) {
                 const value = typeMatch[1];
-                if (value.match(/^\d+$/)) result += "<class 'int'>\n";
-                else if (value.match(/^\d+\.\d+$/)) result += "<class 'float'>\n";
-                else if (value.startsWith('"') && value.endsWith('"')) result += "<class 'str'>\n";
-                else if (value === 'True' || value === 'False') result += "<class 'bool'>\n";
-                else if (variables[value] !== undefined) {
+                if (value.match(/^\d+$/)) {
+                  result += "<class 'int'>\n";
+                } else if (value.match(/^\d+\.\d+$/)) {
+                  result += "<class 'float'>\n";
+                } else if (value.startsWith('"') && value.endsWith('"')) {
+                  result += "<class 'str'>\n";
+                } else if (value === 'True' || value === 'False') {
+                  result += "<class 'bool'>\n";
+                } else if (variables[value] !== undefined) {
                   const varValue = variables[value];
-                  if (typeof varValue === 'number' && Number.isInteger(varValue)) result += "<class 'int'>\n";
-                  else if (typeof varValue === 'number') result += "<class 'float'>\n";
-                  else if (typeof varValue === 'string') result += "<class 'str'>\n";
-                  else if (typeof varValue === 'boolean') result += "<class 'bool'>\n";
+                  if (typeof varValue === 'number' && Number.isInteger(varValue)) {
+                    result += "<class 'int'>\n";
+                  } else if (typeof varValue === 'number') {
+                    result += "<class 'float'>\n";
+                  } else if (typeof varValue === 'string') {
+                    result += "<class 'str'>\n";
+                  } else if (typeof varValue === 'boolean') {
+                    result += "<class 'bool'>\n";
+                  }
                 }
               }
-            } else {
+            }
+            else {
               result += content + '\n';
             }
           }
-        } else if (line.includes(' = ')) {
+        }
+        // Handle variable assignments
+        else if (line.includes(' = ')) {
           const [varName, varValue] = line.split(' = ');
           let value = varValue.trim();
+          
           if (value.startsWith('"') && value.endsWith('"')) {
             variables[varName.trim()] = value.slice(1, -1);
           } else if (value === 'True') {
@@ -187,6 +210,7 @@ const PythonLearningWebsite = () => {
           }
         }
       }
+      
       setOutput(result.trim() || 'No output');
     } catch (error) {
       setOutput('Error: ' + error.message);
@@ -197,26 +221,28 @@ const PythonLearningWebsite = () => {
     const newCompleted = [...completedLessons];
     newCompleted[activeLesson] = true;
     setCompletedLessons(newCompleted);
-
+    
     if (activeLesson < lessons.length - 1) {
       setActiveLesson(activeLesson + 1);
       const nextLesson = lessons[activeLesson + 1];
       setCurrentCode(nextLesson.content.code);
       setOutput(nextLesson.content.output);
-
-      if (activeLesson + 1 === 4) {
+      
+      if (activeLesson + 1 === 4) { // Quiz lesson
         setShowQuiz(true);
       }
     }
   };
 
-  const handleQuizAnswer = (answerIndex) => setSelectedAnswer(answerIndex);
+  const handleQuizAnswer = (answerIndex) => {
+    setSelectedAnswer(answerIndex);
+  };
 
   const submitQuizAnswer = () => {
     if (selectedAnswer === quizQuestions[currentQuestion].correct) {
       setQuizScore(quizScore + 1);
     }
-
+    
     if (currentQuestion < quizQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer('');
@@ -235,34 +261,15 @@ const PythonLearningWebsite = () => {
     setQuizCompleted(false);
   };
 
-  const isAllCompleted = completedLessons.every(status => status);
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 p-6">
-      {/* Tombol kembali */}
-      <div className="mb-4">
-        <button
-          onClick={() => navigate(-1)}
-          className="bg-white text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-lg shadow inline-flex items-center gap-2"
-        >
-          <ChevronRight className="w-4 h-4 rotate-180" />
-          Kembali
-        </button>
-      </div>
+    <div className="min-h-screen bg-blue-600">
+      <div className="container mx-auto px-6 py-8">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-6xl font-bold text-white mb-4">Python</h1>
+          <p className="text-2xl text-blue-200">Inisialisasi Data</p>
+        </div>
 
-      {/* Judul dan Notifikasi */}
-      <div className="text-center mb-8">
-        <h1 className="text-5xl font-bold text-white mb-2">Python</h1>
-        <p className="text-xl text-blue-200">Inisialisasi Data</p>
-        {isAllCompleted && (
-          <div className="mt-4 bg-green-100 border border-green-300 text-green-800 text-sm px-4 py-2 rounded-lg inline-flex items-center gap-2 justify-center mx-auto w-fit">
-            <CheckCircle className="w-5 h-5 text-green-600" />
-            <span>Selamat! Kamu telah menyelesaikan seluruh materi.</span>
-          </div>
-        )}
-      </div>
-
-        <div className="relative z-10 container mx-auto px-6 py-8">
         <div className="flex gap-8 max-w-7xl mx-auto">
           {/* Sidebar */}
           <div className="w-80 space-y-4">

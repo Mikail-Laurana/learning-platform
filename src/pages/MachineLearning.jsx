@@ -4,10 +4,10 @@ import ProgressCards from '../components/ProgressCards';
 
 const MachineLearning = () => {
   const mlCards = [
-    { title: 'Python for ML', progress: 100, type: 'ml' ,link: '/python-orientation'},
-    { title: 'Data Preprocessing', progress: 80, type: 'ml',link: '/data-processing' },
-    { title: 'Model Training', progress: 65, type: 'ml' },
-    { title: 'Model Deployment', progress: 40, type: 'ml' }
+    { title: 'Pengenalan Python', progress: 100, type: 'ml' ,link: '/python-orientation'},
+    { title: 'Inisialisasi Data', progress: 80, type: 'ml',link: '/data-processing' },
+    { title: 'Function Pada Python', progress: 65, type: 'ml',link: '/function-python' },
+    { title: 'Array Python', progress: 40, type: 'ml',link : '/array-python' }
   ];
 
   return (

@@ -4,10 +4,10 @@ import ProgressCards from '../components/ProgressCards';
 
 const FrontEndWebsite = () => {
   const frontEndCards = [
-    { title: 'Setup HTML & CSS', progress: 100, type: 'frontend' },
-    { title: 'JavaScript Fundamentals', progress: 85, type: 'frontend' },
-    { title: 'React.js Basics', progress: 70, type: 'frontend' },
-    { title: 'Responsive Design', progress: 95, type: 'frontend' }
+    { title: 'Dasar HTLM & CSS', progress: 100, type: 'frontend' },
+    { title: 'Fundamental JavaScript', progress: 85, type: 'frontend' },
+    { title: 'Basic React', progress: 70, type: 'frontend' },
+    { title: 'Membuat Responsive Design', progress: 95, type: 'frontend' }
   ];
 
   return (
